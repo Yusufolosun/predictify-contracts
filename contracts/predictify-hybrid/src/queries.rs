@@ -90,6 +90,7 @@ impl QueryManager {
 
         // Get oracle provider name
         let oracle_provider = market.oracle_config.provider.name();
+        let winning_outcome = market.get_winning_outcome();
 
         let response = EventDetailsQuery {
             market_id,
@@ -101,7 +102,7 @@ impl QueryManager {
             oracle_provider: String::from_str(env, oracle_provider),
             feed_id: market.oracle_config.feed_id,
             total_staked: market.total_staked,
-            winning_outcome: market.winning_outcome.clone(),
+            winning_outcome,
             oracle_result: market.oracle_result.clone(),
             participant_count,
             vote_count,
@@ -218,7 +219,7 @@ impl QueryManager {
 
         // Determine if user is winning
         let is_winning = market
-            .winning_outcome
+            .get_winning_outcome()
             .as_ref()
             .map(|wo| wo == &outcome)
             .unwrap_or(false);
@@ -461,7 +462,7 @@ impl QueryManager {
         }
 
         // Get total winning stakes
-        if let Some(winning_outcome) = &market.winning_outcome {
+        if let Some(ref winning_outcome) = market.get_winning_outcome() {
             let winning_total = Self::calculate_outcome_pool(env, market, winning_outcome)?;
 
             if winning_total <= 0 {

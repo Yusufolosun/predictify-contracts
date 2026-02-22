@@ -458,11 +458,14 @@ impl ContractMonitor {
             winning_outcomes: None,
             fee_collected: false,
             state: MarketState::Active,
+            fallback_oracle_config: None,
+            resolution_timeout: 0,
             total_extension_days: 0,
             max_extension_days: 7,
             extension_history: Vec::new(env),
             category: None,
             tags: Vec::new(env),
+            min_pool_size: None,
         })
     }
 
