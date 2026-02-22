@@ -54,13 +54,6 @@ pub enum Error {
     OracleVerified = 204,
     /// Market not ready for oracle verification
     MarketNotReady = 205,
-    /// Fallback oracle is unavailable or unhealthy
-    FallbackOracleUnavailable = 202,
-    /// Resolution timeout has been reached
-    ResolutionTimeoutReached = 203,
-    /// Refund process has been initiated
-    RefundStarted = 204,
-
     // ===== VALIDATION ERRORS =====
     /// Invalid question format
     InvalidQuestion = 300,
@@ -108,8 +101,6 @@ pub enum Error {
     InvalidExtensionDays = 415,
     /// Extension not allowed or exceeded
     ExtensionDenied = 416,
-    /// Extension fee insufficient
-    ExtensionFeeLow = 417,
     /// Admin address is not set (initialization missing)
     AdminNotSet = 418,
     /// Dispute timeout not set
@@ -118,6 +109,8 @@ pub enum Error {
     TimeoutNotExpired = 420,
     /// Invalid timeout hours
     InvalidTimeoutHours = 422,
+    /// Total pool size below required minimum for resolution
+    PoolSizeBelowMinimum = 423,
 
     // ===== CIRCUIT BREAKER ERRORS =====
     /// Circuit breaker not initialized
@@ -1119,7 +1112,6 @@ impl Error {
             Error::NoFeesToCollect => "No fees to collect",
             Error::InvalidExtensionDays => "Invalid extension days",
             Error::ExtensionDenied => "Extension not allowed or exceeded",
-            Error::ExtensionFeeLow => "Extension fee insufficient",
             Error::AdminNotSet => "Admin address is not set (initialization missing)",
             Error::TimeoutNotSet => "Dispute timeout not set",
             Error::TimeoutNotExpired => "Dispute timeout not expired",
@@ -1132,6 +1124,7 @@ impl Error {
             Error::CBAlreadyOpen => "Circuit breaker is already open (paused)",
             Error::CBNotOpen => "Circuit breaker is not open (cannot recover)",
             Error::CBOpen => "Circuit breaker is open (operations blocked)",
+            Error::PoolSizeBelowMinimum => "Total pool size below required minimum for resolution",
         }
     }
 
@@ -1237,7 +1230,6 @@ impl Error {
             Error::NoFeesToCollect => "NO_FEES_TO_COLLECT",
             Error::InvalidExtensionDays => "INVALID_EXTENSION_DAYS",
             Error::ExtensionDenied => "EXTENSION_DENIED",
-            Error::ExtensionFeeLow => "EXTENSION_FEE_INSUFFICIENT",
             Error::AdminNotSet => "ADMIN_NOT_SET",
             Error::TimeoutNotSet => "DISPUTE_TIMEOUT_NOT_SET",
             Error::TimeoutNotExpired => "DISPUTE_TIMEOUT_NOT_EXPIRED",
@@ -1250,6 +1242,7 @@ impl Error {
             Error::CBAlreadyOpen => "CIRCUIT_BREAKER_ALREADY_OPEN",
             Error::CBNotOpen => "CIRCUIT_BREAKER_NOT_OPEN",
             Error::CBOpen => "CIRCUIT_BREAKER_OPEN",
+            Error::PoolSizeBelowMinimum => "POOL_SIZE_BELOW_MINIMUM",
         }
     }
 }

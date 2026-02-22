@@ -43,7 +43,10 @@ fn create_test_market(
         &question,
         &outcomes,
         &30, // 30 days
-        &oracle_config
+        &oracle_config,
+        &None,
+        &0,
+        &None,
     )
 }
 
@@ -257,6 +260,9 @@ impl TokenTestSetup {
                 threshold: 100,
                 comparison: String::from_str(&env, "gte"),
             },
+            &None,
+            &0,
+            &None,
         );
 
         Self { env, contract_id, admin, user1, user2, token_id, market_id }

@@ -112,6 +112,9 @@ impl BetTestSetup {
                 threshold: 100_000_00000000, // $100,000
                 comparison: String::from_str(env, "gte"),
             },
+            &None,
+            &0,
+            &None,
         )
     }
 

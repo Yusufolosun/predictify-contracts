@@ -69,6 +69,9 @@ impl TestSetup {
             &outcomes,
             &duration_days,
             &oracle_config,
+            &None,
+            &0,
+            &None,
         )
     }
 }
